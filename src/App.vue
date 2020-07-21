@@ -1,19 +1,20 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- 使用Home组件 -->
+    <v-home></v-home>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+  // 加载引入Home组件
+  import vHome from "./components/common/Home.vue";
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  export default {
+    components: {
+      // 挂载Home组件
+      vHome,
+    },
+  };
 </script>
 
 <style>
