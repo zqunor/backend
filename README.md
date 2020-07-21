@@ -134,3 +134,49 @@ vue 通过 ` <router-view></router-view> ` 作为组件的出口。
     ]
 },
 ```
+
+### 路由配置简化
+
+原先的写法：
+
+```javascript
+// 先导入
+import vHome from "../components/common/Home.vue";
+import vChild1 from "../components/page/Children1.vue";
+import vChild2 from "../components/page/Children2.vue";
+
+// 再使用
+{
+    path: "/home",
+    component: vHome,
+     children: [
+        {
+            path: "child1",
+            component: vChild1,
+        },
+        {
+            path: "child2",
+            component: vChild2,
+        },
+    ]
+  },
+```
+
+实际可以简化成：
+
+```javascript
+{
+    path: "/home",
+    component: () => import("../components/page/Home.vue"),
+    children: [
+        {
+            path: "child1",
+            component: () => import("../components/page/Children1.vue"),
+        },
+        {
+            path: "child2",
+            component: () => import("../components/page/Children2.vue"),
+        },
+    ]
+  },
+```
