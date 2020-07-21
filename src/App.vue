@@ -1,21 +1,9 @@
 <template>
   <div id="app">
-    <!-- 使用Home组件 -->
-    <v-home></v-home>
+    <!-- 这个 <router-view></router-view> 便是我们最顶层的出口，通过路由调控的组件都会被渲染到这个出口位置。 -->
+    <router-view></router-view>
   </div>
 </template>
-
-<script>
-  // 加载引入Home组件
-  import vHome from "./components/common/Home.vue";
-
-  export default {
-    components: {
-      // 挂载Home组件
-      vHome,
-    },
-  };
-</script>
 
 <style>
   @import "./assets/css/main.css";
