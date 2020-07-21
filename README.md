@@ -95,6 +95,8 @@ package.json： 项目配置文件，包含引入的插件的配置信息和一�
 
 ## 创建组件配置路由
 
+### 使用路由
+
 使用 Vue Router 一共需要五步：
 
 1. 引入 vue-router
@@ -103,3 +105,32 @@ package.json： 项目配置文件，包含引入的插件的配置信息和一�
 4. 实例化 VueRouter，并将路由配置文件传递到 VueRouter 实例上
 5. 将 VueRouter 挂载到 Vue 实例中
 
+### 嵌套路由
+
+vue 通过 ` <router-view></router-view> ` 作为组件的出口。
+
+其中`src/App.vue` 中的` <router-view></router-view> `是所有组件的根出口，通过路由调控的组件都会被渲染到这个出口位置。
+在某个组件中继续使用组件，那增加的组件就是这个组件的子组件，父子组件之前也是通过` <router-view></router-view> `进行渲染的。而父组件是如何知道该子组件具体是哪个组件的？
+
+这就需要在路由配置文件中配置：
+
+```javascript
+{
+    // 设置 URL
+    path: "/home",
+    // 设置对应组件
+    component: vHome,
+    // 设置相应元信息
+    meta: {
+      title: "Home组件",
+    },
+    // 设置子组件
+    children: [
+        {
+            // 要注意，以 / 开头的嵌套路径会被当作根路径。 使用嵌套组件无须设置嵌套的路径。
+            path: "child",
+            component: vChild,
+        }
+    ]
+},
+```
