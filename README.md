@@ -240,3 +240,22 @@ Vue.prototype.$ELEMENT = { size: "small", zIndex: 3000 };
 
 - size：用于改变组件的默认尺寸，默认尺寸为 "small"。
 - zIndex：用于设置弹框的初始 z-index（默认为 2000)。
+
+### 全局引入
+
+- 优点：方便
+- 缺点：项目体积大
+
+引入方式：
+
+```js
+// 引入 Element UI
+import ElementUI from "element-ui";
+// 单独引入样式文件
+import "element-ui/lib/theme-chalk/index.css";
+
+// 执行 ElementUI
+Vue.use(ElementUI, { size: "small", zIndex: 3000 });
+
+Vue.config.productionTip = false;
+```

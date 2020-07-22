@@ -2,19 +2,15 @@ import Vue from 'vue'
 import App from './App.vue'
 // 引入 VueRouter
 import router from "./router";
-import { Button, Select, Option } from "element-ui";
+// 引入 Element UI
+import ElementUI from "element-ui";
+// 单独引入样式文件
+import "element-ui/lib/theme-chalk/index.css";
 
-// Vue.config.productionTip = false
+// 执行 ElementUI
+Vue.use(ElementUI, { size: "small", zIndex: 3000 });
 
-// 执行引入的样式组件
-Vue.component(Button.name, Button);
-Vue.component(Select.name, Select);
-Vue.component(Option.name, Option);
-/* 或写为
- * Vue.use(Button)
- * Vue.use(Select)
- * Vue.use(Option)
- */
+Vue.config.productionTip = false
 
 // 实例化 Vue
 new Vue({
