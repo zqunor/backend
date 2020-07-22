@@ -259,3 +259,85 @@ Vue.use(ElementUI, { size: "small", zIndex: 3000 });
 
 Vue.config.productionTip = false;
 ```
+
+### element ui 小案例
+
+1、效果预览：
+
+![element_ui_demo.png](https://ws1.sinaimg.cn/large/005EgYNMly1gh0750x509j30q80bjdgz.jpg)
+
+2、基本使用
+
+(0) 容器布局
+
+- 外层容器：`el-container`
+- 侧边栏容器：`el-aside`
+- 主要区域容器：`el-main`
+
+(1) 折叠菜单
+
+- `el-menu`
+- `el-submenu`
+- `template` 设置每一级菜单的显示（标题、图标）
+- `el-menu-item-group` 包裹一个子菜单组
+- `el-menu-item`： 子菜单元素
+
+```js
+<el-menu :default-openeds="['1']">
+    <el-submenu index="1">
+        <template slot="title">
+            <i class="el-icon-message"></i>导航
+        </template>
+        <el-menu-item-group>
+            <template slot="title">分组一</template>
+            <el-menu-item index="1-1">选项 1</el-menu-item>
+            <el-menu-item index="1-2">选项 2</el-menu-item>
+        </el-menu-item-group>
+    </el-submenu>
+</el-menu>
+```
+
+(2) 下拉菜单
+
+- `el-dropdown`
+- `el-dropdown-menu`
+- `el-dropdown-item`： 子菜单元素
+
+```js
+<el-dropdown>
+    <i class="el-icon-setting" style="margin-right: 15px"></i>
+    <el-dropdown-menu slot="dropdown">
+        <el-dropdown-item>查看</el-dropdown-item>
+        <el-dropdown-item>新增</el-dropdown-item>
+        <el-dropdown-item>删除</el-dropdown-item>
+    </el-dropdown-menu>
+</el-dropdown>
+```
+
+(3) 表格
+
+- `el-table`
+- `el-table-column`
+
+```js
+<el-table :data="tableData" style="border: 1px solid #eee">
+    <el-table-column prop="date" label="日期" width="140"></el-table-column>
+    <el-table-column prop="name" label="姓名" width="120"></el-table-column>
+</el-table>
+```
+
+表格数据填充
+
+```js
+export default {
+  data() {
+    const item = {
+      date: "2019-09-17",
+      name: "shiyanlou"
+    };
+    return {
+      tableData: Array(10).fill(item)
+    };
+  }
+};
+```

@@ -39,6 +39,10 @@ const routes = [
       title: "Login组件",
     },
   },
+  {
+    path: "/demo",
+    component: () => import("../components/page/EleDemo.vue"),
+  },
 ];
 
 // 4. 实例化VueRouter, 并将路由配置文件传递到VueRouter实例上
