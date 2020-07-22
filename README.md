@@ -180,3 +180,63 @@ import vChild2 from "../components/page/Children2.vue";
     ]
   },
 ```
+
+## Element UI 框架
+
+### 按需引入
+
+根据需求对 Element UI 里的组件单独引入。
+
+- 优点：体积小
+- 缺点：增加了手动引入的工作量；代码繁杂紊乱。
+
+1、安装 babel-plugin-component 插件（实现按需引入）
+
+```bash
+npm install  babel-plugin-component -D
+```
+
+2、修改项目中的 `babel.config.js` 文件
+
+```js
+module.exports = {
+  presets: ["@vue/app", ["@babel/preset-env", { modules: false }]],
+  plugins: [
+    [
+      "component",
+      {
+        libraryName: "element-ui",
+        styleLibraryName: "theme-chalk",
+      },
+    ],
+  ],
+};
+```
+
+3、引入并加载组件
+
+```js
+// 在 main.js 中 import App from './App.vue' 下方添加以下代码
+// 引入所需样式组件
+import { Button, Select, Option } from "element-ui";
+
+// 执行引入的样式组件
+Vue.component(Button.name, Button);
+Vue.component(Select.name, Select);
+Vue.component(Option.name, Option);
+/* 或写为
+ * Vue.use(Button)
+ * Vue.use(Select)
+ * Vue.use(Option)
+ */
+```
+
+全局配置：
+
+```js
+// main.js
+Vue.prototype.$ELEMENT = { size: "small", zIndex: 3000 };
+```
+
+- size：用于改变组件的默认尺寸，默认尺寸为 "small"。
+- zIndex：用于设置弹框的初始 z-index（默认为 2000)。
