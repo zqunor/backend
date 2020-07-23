@@ -341,3 +341,123 @@ export default {
   }
 };
 ```
+
+## 完善组件模块
+
+### 非父子组件通信
+
+- 父组件Home: 挂载多个同级子组件
+- 子组件A: 触发事件(任意)，传出数据($emit事件)
+- 子组件B：监听事件(mount)，接收数据($on事件)
+
+0、实现载体
+
+```js
+// utils/bus.js
+import Vue from "vue";
+
+// 使用 Event Bus来实现非父子组件之间的通信
+const bus = new Vue();
+
+export default bus;
+```
+
+1、父组件挂载
+
+```vue
+<template>
+  <div class="home-wrap">
+    <span>Home组件</span>
+    <v-fir></v-fir>
+    <v-sec></v-sec>
+  </div>
+</template>
+<script>
+  import vFir from "../page/First";
+  import vSec from "../page/Second";
+  export default {
+    components: {
+      vFir,
+      vSec,
+    },
+  };
+</script>
+```
+
+2、子组件A 制定触发事件，设置并传出通信数据
+
+```vue
+// components/page/First.vue
+<template>
+  <div class="wrapper">
+    <hr />
+    <br />
+    <button @click="send">send</button>
+  </div>
+</template>
+<script>
+  import Bus from "../../utils/bus";
+  export default {
+    data() {
+      return {
+        message: "",
+      };
+    },
+    methods: {
+      send() {
+        this.message = "这是传递到 second 中的数据!";
+        Bus.$emit("msg", this.message);
+      },
+    },
+  };
+</script>
+```
+
+3、子组件B 设置监听，接收通信数据
+
+```vue
+// components/page/Second.vue
+<template>
+  <div class="wrapper">
+    <hr />
+    <br />
+    <p>{{message}}</p>
+  </div>
+</template>
+<script>
+  import Bus from "../../utils/bus";
+  export default {
+    data() {
+      return {
+        message: "",
+      };
+    },
+    mounted() {
+      let self = this;
+      Bus.$on("msg", (e) => {
+        self.message = e;
+      });
+    },
+  };
+</script>
+```
+
+4、设置路由
+
+```js
+// router/js
+// 设置 URL
+path: "/home",
+// 设置对应组件
+component: () => import("../components/common/Home.vue"),
+children: [
+    {
+      path: "first",
+      component: () => import("../components/page/First.vue"),
+    },
+    {
+      path: "second",
+      component: () => import("../components/page/Second.vue"),
+    },
+]
+```
